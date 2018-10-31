@@ -4,8 +4,8 @@ ANNETT-o is an [OWL](https://www.w3.org/OWL/) ontology for describing arbitrary,
         
 ANNETT-o is able to capture and link many of the topological, training and evaluation characteristics of existing and future artificial neural network configurations, in order to create knowledge bases that could drive the design of deep learning solutions. ANNETT-o aims to help fill in the gap when it comes to studying, understanding and designing ANN solutions.
 
-## WebProtégé version
-A working version of ANNETT-O is available as a [WebProtégé project](https://webprotege.stanford.edu/#projects/7708e47d-3bd5-46d2-ac1f-0587b70e3107/edit/Classes). 
+### WebProtégé version
+A working version of ANNETT-o is available as a [WebProtégé project](https://webprotege.stanford.edu/#projects/7708e47d-3bd5-46d2-ac1f-0587b70e3107/edit/Classes). 
 
 
 [//]: # (## Publication)
