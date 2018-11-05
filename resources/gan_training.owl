@@ -1,0 +1,97 @@
+    <!-- http://w3id.org/annett-o/gan -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/annett-o/gan">
+        <rdf:type rdf:resource="http://w3id.org/annett-o/ANNConfiguration"/>
+        <hasTrainingStrategy rdf:resource="http://w3id.org/annett-o/gan_strategy"/>
+    </owl:NamedIndividual>
+
+
+    <!-- http://w3id.org/annett-o/gan_strategy -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/annett-o/gan_strategy">
+        <rdf:type rdf:resource="http://w3id.org/annett-o/TrainingStrategy"/>
+        <hasPrimaryTrainingSession rdf:resource="http://w3id.org/annett-o/gan_session"/>
+    </owl:NamedIndividual>
+
+
+    <!-- http://w3id.org/annett-o/gan_session -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/annett-o/gan_session">
+        <rdf:type rdf:resource="http://w3id.org/annett-o/TrainingSession"/>
+        <hasPrimaryTrainingStep rdf:resource="http://w3id.org/annett-o/gan_trainloop"/>
+    </owl:NamedIndividual>
+
+
+    <!-- http://w3id.org/annett-o/gan_trainloop -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/annett-o/gan_trainloop">
+        <rdf:type rdf:resource="http://w3id.org/annett-o/TrainingLoop"/>
+        <hasPrimaryLoopTrainingStep rdf:resource="http://w3id.org/annett-o/gan_discriminate_mnist"/>
+        <hasStopCondition rdf:resource="http://w3id.org/annett-o/gan_stopcondition"/>
+        <nextTrainingStep rdf:resource="http://w3id.org/annett-o/gan_generatorstep"/>
+    </owl:NamedIndividual>
+
+
+    <!-- http://w3id.org/annett-o/gan_stopcondition -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/annett-o/gan_stopcondition">
+        <rdf:type rdf:resource="http://w3id.org/annett-o/IterateFor"/>
+        <num_of_iterations rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5</num_of_iterations>
+    </owl:NamedIndividual>
+
+
+    <!-- http://w3id.org/annett-o/gan_generatorstep -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/annett-o/gan_generatorstep">
+        <rdf:type rdf:resource="http://w3id.org/annett-o/TrainingSingle"/>
+        <trainsNetwork rdf:resource="http://w3id.org/annett-o/GAN_net"/>
+        <batch_size rdf:datatype="http://www.w3.org/2001/XMLSchema#int">50</batch_size>
+        <learning_rate_decay rdf:datatype="http://www.dmg.org/PMML-4_3#Array">&lt;Array n=&quot;3&quot; type=&quot;real&quot;&gt;
+0.1 0.1 0.1
+&lt;/Array&gt;</learning_rate_decay>
+        <learning_rate_decay_epochs rdf:datatype="http://www.dmg.org/PMML-4_3#Array">&lt;Array n=&quot;3&quot; type=&quot;integer&quot;&gt;
+50 100 500
+&lt;/Array&gt;</learning_rate_decay_epochs>
+        <number_of_epochs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">500</number_of_epochs>
+    </owl:NamedIndividual>
+
+    <!-- http://w3id.org/annett-o/gan_gen_fpass -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/annett-o/gan_gen_fpass">
+        <rdf:type rdf:resource="http://w3id.org/annett-o/TrainingSingleForwardOnly"/>
+        <nextTrainingStep rdf:resource="http://w3id.org/annett-o/gan_discriminate_generatorout"/>
+        <trainsNetwork rdf:resource="http://w3id.org/annett-o/GAN_Generator"/>
+    </owl:NamedIndividual>
+
+    <!-- http://w3id.org/annett-o/gan_discriminate_generatorout -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/annett-o/gan_discriminate_generatorout">
+        <rdf:type rdf:resource="http://w3id.org/annett-o/TrainingSingle"/>
+        <trainsNetwork rdf:resource="http://w3id.org/annett-o/GAN_Discriminator"/>
+        <batch_size rdf:datatype="http://www.w3.org/2001/XMLSchema#int">50</batch_size>
+        <learning_rate_decay rdf:datatype="http://www.dmg.org/PMML-4_3#Array">&lt;Array n=&quot;3&quot; type=&quot;real&quot;&gt;
+0.1 0.1 0.1
+&lt;/Array&gt;</learning_rate_decay>
+        <learning_rate_decay_epochs rdf:datatype="http://www.dmg.org/PMML-4_3#Array">&lt;Array n=&quot;3&quot; type=&quot;integer&quot;&gt;
+100 250 450
+&lt;/Array&gt;</learning_rate_decay_epochs>
+        <number_of_epochs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">500</number_of_epochs>
+    </owl:NamedIndividual>
+
+    <!-- http://w3id.org/annett-o/gan_discriminate_mnist -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/annett-o/gan_discriminate_mnist">
+        <rdf:type rdf:resource="http://w3id.org/annett-o/TrainingSingle"/>
+        <nextTrainingStep rdf:resource="http://w3id.org/annett-o/gan_gen_fpass"/>
+        <trainsNetwork rdf:resource="http://w3id.org/annett-o/GAN_Discriminator"/>
+        <batch_size rdf:datatype="http://www.w3.org/2001/XMLSchema#int">50</batch_size>
+        <learning_rate_decay rdf:datatype="http://www.dmg.org/PMML-4_3#Array">&lt;Array n=&quot;3&quot; type=&quot;real&quot;&gt;
+0.1 0.1 0.1
+&lt;/Array&gt;</learning_rate_decay>
+        <learning_rate_decay_epochs rdf:datatype="http://www.dmg.org/PMML-4_3#Array">&lt;Array n=&quot;3&quot; type=&quot;integer&quot;&gt;
+100 250 450
+&lt;/Array&gt;</learning_rate_decay_epochs>
+        <number_of_epochs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">500</number_of_epochs>
+    </owl:NamedIndividual>
+
+

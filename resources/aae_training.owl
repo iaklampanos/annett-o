@@ -1,0 +1,126 @@
+    <!-- http://w3id.org/annett-o/aae -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/annett-o/aae">
+        <rdf:type rdf:resource="http://w3id.org/annett-o/ANNConfiguration"/>
+        <hasTrainingStrategy rdf:resource="http://w3id.org/annett-o/aae_strategy"/>
+    </owl:NamedIndividual>
+
+    <!-- http://w3id.org/annett-o/aae_strategy -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/annett-o/aae_strategy">
+        <rdf:type rdf:resource="http://w3id.org/annett-o/TrainingStrategy"/>
+        <hasPrimaryTrainingSession rdf:resource="http://w3id.org/annett-o/aae_session"/>
+    </owl:NamedIndividual>
+
+    <!-- http://w3id.org/annett-o/aae_session -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/annett-o/aae_session">
+        <rdf:type rdf:resource="http://w3id.org/annett-o/TrainingSession"/>
+        <hasPrimaryTrainingStep rdf:resource="http://w3id.org/annett-o/aae_autoencoder_step"/>
+    </owl:NamedIndividual>
+
+    <!-- http://w3id.org/annett-o/aae_autoencoder_step -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/annett-o/aae_autoencoder_step">
+        <rdf:type rdf:resource="http://w3id.org/annett-o/TrainingSingle"/>
+        <nextTrainingStep rdf:resource="http://w3id.org/annett-o/aae_style_forward"/>
+        <trainsNetwork rdf:resource="http://w3id.org/annett-o/aae_AE"/>
+        <batch_size rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</batch_size>
+        <learning_rate_decay rdf:datatype="http://www.dmg.org/PMML-4_3#Array">0.1</learning_rate_decay>
+        <learning_rate_decay_epochs rdf:datatype="http://www.dmg.org/PMML-4_3#Array">[50]</learning_rate_decay_epochs>
+        <number_of_epochs rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1500</number_of_epochs>
+    </owl:NamedIndividual>
+
+    <!-- http://w3id.org/annett-o/aae_style_forward -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/annett-o/aae_style_forward">
+        <rdf:type rdf:resource="http://w3id.org/annett-o/TrainingSingleForwardOnly"/>
+        <nextTrainingStep rdf:resource="http://w3id.org/annett-o/aae_label_forward"/>
+        <trainsNetwork rdf:resource="http://w3id.org/annett-o/aae_Encoder_Style"/>
+    </owl:NamedIndividual>
+
+
+    <!-- http://w3id.org/annett-o/aae_label_forward -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/annett-o/aae_label_forward">
+        <rdf:type rdf:resource="http://w3id.org/annett-o/TrainingSingleForwardOnly"/>
+        <nextTrainingStep rdf:resource="http://w3id.org/annett-o/aae_styledis_noise_step"/>
+        <trainsNetwork rdf:resource="http://w3id.org/annett-o/aae_Encoder_Label"/>
+    </owl:NamedIndividual>
+
+
+    <!-- http://w3id.org/annett-o/aae_styledis_noise_step -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/annett-o/aae_styledis_noise_step">
+        <rdf:type rdf:resource="http://w3id.org/annett-o/TrainingSingle"/>
+        <nextTrainingStep rdf:resource="http://w3id.org/annett-o/aae_labeldis_noise_step"/>
+        <trainsNetwork rdf:resource="http://w3id.org/annett-o/aae_Style_Discriminator"/>
+        <batch_size rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</batch_size>
+        <learning_rate_decay rdf:datatype="http://www.dmg.org/PMML-4_3#Array">0.1</learning_rate_decay>
+        <learning_rate_decay_epochs rdf:datatype="http://www.dmg.org/PMML-4_3#Array">50</learning_rate_decay_epochs>
+        <number_of_epochs rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1500</number_of_epochs>
+    </owl:NamedIndividual>
+    
+
+    <!-- http://w3id.org/annett-o/aae_labeldis_noise_step -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/annett-o/aae_labeldis_noise_step">
+        <rdf:type rdf:resource="http://w3id.org/annett-o/TrainingSingle"/>
+        <nextTrainingStep rdf:resource="http://w3id.org/annett-o/aae_styledis_encodings_step"/>
+        <trainsNetwork rdf:resource="http://w3id.org/annett-o/aae_Label_Discriminator"/>
+        <batch_size rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</batch_size>
+        <learning_rate_decay rdf:datatype="http://www.dmg.org/PMML-4_3#Array">0.1</learning_rate_decay>
+        <learning_rate_decay_epochs rdf:datatype="http://www.dmg.org/PMML-4_3#Array">50</learning_rate_decay_epochs>
+        <number_of_epochs rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1500</number_of_epochs>
+    </owl:NamedIndividual>
+
+    <!-- http://w3id.org/annett-o/aae_styledis_encodings_step -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/annett-o/aae_styledis_encodings_step">
+        <rdf:type rdf:resource="http://w3id.org/annett-o/TrainingSingle"/>
+        <nextTrainingStep rdf:resource="http://w3id.org/annett-o/aae_labeldis_encodings_step"/>
+        <trainsNetwork rdf:resource="http://w3id.org/annett-o/aae_Style_Discriminator"/>
+        <batch_size rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</batch_size>
+        <learning_rate_decay rdf:datatype="http://www.dmg.org/PMML-4_3#Array">0.1</learning_rate_decay>
+        <learning_rate_decay_epochs rdf:datatype="http://www.dmg.org/PMML-4_3#Array">50</learning_rate_decay_epochs>
+        <number_of_epochs rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1500</number_of_epochs>
+    </owl:NamedIndividual>
+
+
+    <!-- http://w3id.org/annett-o/aae_labeldis_encodings_step -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/annett-o/aae_labeldis_encodings_step">
+        <rdf:type rdf:resource="http://w3id.org/annett-o/TrainingSingle"/>
+        <nextTrainingStep rdf:resource="http://w3id.org/annett-o/aae_stylegen_step"/>
+        <trainsNetwork rdf:resource="http://w3id.org/annett-o/aae_Label_Discriminator"/>
+        <batch_size rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</batch_size>
+        <learning_rate_decay rdf:datatype="http://www.dmg.org/PMML-4_3#Array">0.1</learning_rate_decay>
+        <learning_rate_decay_epochs rdf:datatype="http://www.dmg.org/PMML-4_3#Array">50</learning_rate_decay_epochs>
+        <number_of_epochs rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1500</number_of_epochs>
+    </owl:NamedIndividual>
+
+    <!-- http://w3id.org/annett-o/aae_stylegen_step -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/annett-o/aae_stylegen_step">
+        <rdf:type rdf:resource="http://w3id.org/annett-o/TrainingSingle"/>
+        <nextTrainingStep rdf:resource="http://w3id.org/annett-o/aae_labelgen_step"/>
+        <trainsNetwork rdf:resource="http://w3id.org/annett-o/aae_Style_GAN"/>
+        <batch_size rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</batch_size>
+        <learning_rate_decay rdf:datatype="http://www.dmg.org/PMML-4_3#Array">0.1</learning_rate_decay>
+        <learning_rate_decay_epochs rdf:datatype="http://www.dmg.org/PMML-4_3#Array">50</learning_rate_decay_epochs>
+        <number_of_epochs rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1500</number_of_epochs>
+    </owl:NamedIndividual>
+
+    <!-- http://w3id.org/annett-o/aae_labelgen_step -->
+
+    <owl:NamedIndividual rdf:about="http://w3id.org/annett-o/aae_labelgen_step">
+        <rdf:type rdf:resource="http://w3id.org/annett-o/TrainingSingle"/>
+        <hasTrainingOptimizer rdf:resource="http://w3id.org/annett-o/aae_Discriminator_Optimizer"/>
+        <trainsNetwork rdf:resource="http://w3id.org/annett-o/aae_Label_GAN"/>
+        <batch_size rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</batch_size>
+        <learning_rate_decay rdf:datatype="http://www.dmg.org/PMML-4_3#Array">0.1</learning_rate_decay>
+        <learning_rate_decay_epochs rdf:datatype="http://www.dmg.org/PMML-4_3#Array">50</learning_rate_decay_epochs>
+        <number_of_epochs rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1500</number_of_epochs>
+    </owl:NamedIndividual>
+
+
